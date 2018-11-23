@@ -23,6 +23,22 @@ CREATE TABLE user_register(
     authority char(1)
 );
 DESCRIBE user_register;
+ALTER TABLE user_register MODIFY IP_address varchar(255);
+INSERT INTO user_register ( user_id,account,user_password,register_status,IP_address,last_time,authority)
+                       VALUES
+                       (220181499,'seuwh2018@foxmail.com',123456,1,'192.168.1.1','1999-9-9 12:12:12',1);
+
+select * from user_register;
+
+SELECT * FROM user_register INTO OUTFILE 'F:\SEUMSTC\web\My_SQL_learn\output\user_register.txt'
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n';
+```
+
+
+**Tips:** 查看 secure-file-priv 当前的值是什么?
+```sql
+    show variables like '%secure%';
 ```
 # 创建用户信息表
 用户信息表：user_information  
