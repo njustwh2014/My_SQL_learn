@@ -114,17 +114,34 @@ SHOW TABLES;
 CREATE TABLE user_blog_information(
     blog_id int(11),
     user_id int(11),   
+    blog_publish_time datetime,
+    blog_update_time datetime,
+    blog_html_source_address TEXT,
+    blog_topic VARCHAR(255),
+    blog_source varchar(255),
+    blog_title varchar(255),
+    blog_title_font_size INT UNSIGNED,
+    blog_title_font_color INT UNSIGNED,
+    blog_key_word varchar(255),
+    blog_recommended Bit,
+    blog_deleted Bit,
+    blog_number_collected SMALLINT,
+    blog_number_like SMALLINT,
+    blog_number_dislike SMALLINT,
+    blog_number_readed MEDIUMINT,
+    blog_number_commented SMALLINT,
+    blog_lasted_commented_time datetime
 );
 
 ALTER TABLE user_blog_information ADD blog_publish_time datetime;
 ALTER TABLE user_blog_information ADD blog_update_time datetime;
 ALTER TABLE user_blog_information ADD blog_html_source_address TEXT;
-ALTER TABLE user_blog_information ADD blog_topic varchar;
-ALTER TABLE user_blog_information ADD blog_source varchar;
-ALTER TABLE user_blog_information ADD blog_title varchar;
+ALTER TABLE user_blog_information ADD blog_topic VARCHAR(255);
+ALTER TABLE user_blog_information ADD blog_source varchar(255);
+ALTER TABLE user_blog_information ADD blog_title varchar(255);
 ALTER TABLE user_blog_information ADD blog_title_font_size INT UNSIGNED;
 ALTER TABLE user_blog_information ADD blog_title_font_color INT UNSIGNED;
-ALTER TABLE user_blog_information ADD blog_key_word varchar;
+ALTER TABLE user_blog_information ADD blog_key_word varchar(255);
 ALTER TABLE user_blog_information ADD blog_recommended Bit;
 ALTER TABLE user_blog_information ADD blog_deleted Bit;
 ALTER TABLE user_blog_information ADD blog_number_collected SMALLINT;
@@ -133,7 +150,7 @@ ALTER TABLE user_blog_information ADD blog_number_dislike SMALLINT;
 ALTER TABLE user_blog_information ADD blog_number_readed MEDIUMINT;
 ALTER TABLE user_blog_information ADD blog_number_commented SMALLINT;
 ALTER TABLE user_blog_information ADD blog_lasted_commented_time datetime;
-
+DROP TABLE user_blog_information;
 DESCRIBE user_blog_information;
 ```
 
