@@ -30,7 +30,7 @@ INSERT INTO user_register ( user_id,account,user_password,register_status,IP_add
 
 select * from user_register;
 
-SELECT * FROM user_register INTO OUTFILE 'F:\SEUMSTC\web\My_SQL_learn\output\user_register.txt'
+SELECT * FROM user_register INTO OUTFILE 'F:/SEUMSTC/web/My_SQL_learn/output/user_register.txt';
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n';
 ```
