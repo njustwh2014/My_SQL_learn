@@ -1,6 +1,6 @@
 # 创建用户登陆表
 用户登陆表 user_register  
-Id：user_id  
+ID：user_id  
 账号：account  
 密码：user_password  
 登录状态：register_status  
@@ -108,8 +108,35 @@ CREATE TABLE user_collect(
 评论量：blog_number_commented  
 最后评论时间：blog_lasted_commented_time  
 ```sql
+SHOW DATEBASES;
+USE SEUMSTC;
+SHOW TABLES;
+CREATE TABLE user_blog_information(
+    blog_id int(11),
+    user_id int(11),   
+);
 
+ALTER TABLE user_blog_information ADD blog_publish_time datetime;
+ALTER TABLE user_blog_information ADD blog_update_time datetime;
+ALTER TABLE user_blog_information ADD blog_html_source_address TEXT;
+ALTER TABLE user_blog_information ADD blog_topic varchar;
+ALTER TABLE user_blog_information ADD blog_source varchar;
+ALTER TABLE user_blog_information ADD blog_title varchar;
+ALTER TABLE user_blog_information ADD blog_title_font_size INT UNSIGNED;
+ALTER TABLE user_blog_information ADD blog_title_font_color INT UNSIGNED;
+ALTER TABLE user_blog_information ADD blog_key_word varchar;
+ALTER TABLE user_blog_information ADD blog_recommended Bit;
+ALTER TABLE user_blog_information ADD blog_deleted Bit;
+ALTER TABLE user_blog_information ADD blog_number_collected SMALLINT;
+ALTER TABLE user_blog_information ADD blog_number_like SMALLINT;
+ALTER TABLE user_blog_information ADD blog_number_dislike SMALLINT;
+ALTER TABLE user_blog_information ADD blog_number_readed MEDIUMINT;
+ALTER TABLE user_blog_information ADD blog_number_commented SMALLINT;
+ALTER TABLE user_blog_information ADD blog_lasted_commented_time datetime;
+
+DESCRIBE user_blog_information;
 ```
+
 # 创建博客评论表
 博客评论表设计：user_blog_comment  
 评论ID：blog_comment_id  
