@@ -209,7 +209,7 @@ CREATE TABLE user_blog_comment_reply(
     reply_type int(1),
     blog_comment_id int(11),
     blog_id int(11),
-    blog_comment_reply_reply_id int(11),
+    comment_reply_reply_id int(11),
     number_like SMALLINT,
     number_dislike SMALLINT,
     status_flag bit
