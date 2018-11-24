@@ -102,27 +102,28 @@ CREATE TABLE user_collect(
 博客信息表：user_blog_information  
 博客ID：blog_id  
 作者ID：user_id  
-发表日期：blog_publish_time  
-更新日期：blog_update_time  
-源地址：blog_html_source_address  
-博客主题：blog_topic  
-来源：blog_source  
-标题：blog_title  
-标题字体大小：blog_title_font_size  
-标题字体颜色：blog_title_font_color  
-关键字：blog_key_word  
-博客内容：blog_content  
+发表日期：publish_time  
+更新日期：update_time  
+源地址：html_source_address  
+博客主题：topic  
+来源：source  
+标题：title  
+标题字体大小：title_font_size  
+标题字体颜色：title_font_color  
+关键字：key_word  
+博客内容：content  
 
-是否推荐：blog_recommended  
-是否删除：blog_deleted  
+是否推荐：recommended  
+是否删除：deleted  
 
-被收藏量：blog_number_collected  
-点赞数：blog_number_like  
-点踩数：blog_number_dislike  
+被收藏量：number_collected  
+点赞数：number_like  
+点踩数：number_dislike  
 
-浏览量：blog_number_readed  
-评论量：blog_number_commented  
-最后评论时间：blog_lasted_commented_time  
+浏览量：number_readed  
+评论量：number_commented  
+最后评论时间：lasted_commented_time  
+状态: status_flag
 ```sql
 SHOW DATEBASES;
 USE SEUMSTC;
@@ -130,72 +131,58 @@ SHOW TABLES;
 CREATE TABLE user_blog_information(
     blog_id int(11),
     user_id int(11),   
-    blog_publish_time datetime,
-    blog_update_time datetime,
-    blog_html_source_address TEXT,
-    blog_topic VARCHAR(255),
-    blog_source varchar(255),
-    blog_title varchar(255),
-    blog_title_font_size INT UNSIGNED,
-    blog_title_font_color INT UNSIGNED,
-    blog_key_word varchar(255),
-    blog_recommended Bit,
-    blog_deleted Bit,
-    blog_number_collected SMALLINT,
-    blog_number_like SMALLINT,
-    blog_number_dislike SMALLINT,
-    blog_number_readed MEDIUMINT,
-    blog_number_commented SMALLINT,
-    blog_lasted_commented_time datetime
+    publish_time datetime,
+    update_time datetime,
+    html_source_address TEXT,
+    topic VARCHAR(255),
+    source varchar(255),
+    title varchar(255),
+    title_font_size INT UNSIGNED,
+    title_font_color INT UNSIGNED,
+    key_word varchar(255),
+    recommended Bit,
+    deleted Bit,
+    number_collected SMALLINT,
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    number_readed MEDIUMINT,
+    number_commented SMALLINT,
+    lasted_commented_time datetime,
+    status_flag bit
 );
-
-ALTER TABLE user_blog_information ADD blog_publish_time datetime;
-ALTER TABLE user_blog_information ADD blog_update_time datetime;
-ALTER TABLE user_blog_information ADD blog_html_source_address TEXT;
-ALTER TABLE user_blog_information ADD blog_topic VARCHAR(255);
-ALTER TABLE user_blog_information ADD blog_source varchar(255);
-ALTER TABLE user_blog_information ADD blog_title varchar(255);
-ALTER TABLE user_blog_information ADD blog_title_font_size INT UNSIGNED;
-ALTER TABLE user_blog_information ADD blog_title_font_color INT UNSIGNED;
-ALTER TABLE user_blog_information ADD blog_key_word varchar(255);
-ALTER TABLE user_blog_information ADD blog_recommended Bit;
-ALTER TABLE user_blog_information ADD blog_deleted Bit;
-ALTER TABLE user_blog_information ADD blog_number_collected SMALLINT;
-ALTER TABLE user_blog_information ADD blog_number_like SMALLINT;
-ALTER TABLE user_blog_information ADD blog_number_dislike SMALLINT;
-ALTER TABLE user_blog_information ADD blog_number_readed MEDIUMINT;
-ALTER TABLE user_blog_information ADD blog_number_commented SMALLINT;
-ALTER TABLE user_blog_information ADD blog_lasted_commented_time datetime;
 DROP TABLE user_blog_information;
 DESCRIBE user_blog_information;
 ```
-
+**添加字段**
+```sql
+ALTER TABLE user_blog_information ADD publish_time datetime;
+```
 # 创建博客评论表
 博客评论表设计：user_blog_comment  
 评论ID：blog_comment_id  
 对应博客ID：blog_id  
 发表者：user_id  
-发表日期：blog_comment_publish_time  
-评论内容：blog_comment_content  
-点赞量：blog_comment_number_like  
-点踩量：blog_comment_number_dislike  
-回复评论数：blog_comment_number_replyed  
-是否为热评：blog_comment_hot  
-是否置顶：blog_comment_stick  
-评论状态：blog_comment_status -1为删除，0为待审核，1为已发布 
+发表日期：publish_time  
+评论内容：content  
+点赞量：number_like  
+点踩量：number_dislike  
+回复评论数：number_replyed  
+是否为热评：hot  
+是否置顶：stick  
+评论状态：status_flag -1为删除，0为待审核，1为已发布 
 ```sql
 CREATE TABLE user_blog_comment(
     blog_comment_id int(11),
     blog_id int(11),
     user_id int(11),
-    blog_comment_publish_time datetime,
-    blog_comment_content text,
-    blog_comment_number_like SMALLINT,
-    blog_comment_number_dislike SMALLINT,
-    blog_comment_number_replyed SMALLINT,
-    blog_comment_hot bit,
-    blog_comment_stick bit,
-    blog_comment_status int(1)
+    publish_time datetime,
+    content text,
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    number_replyed SMALLINT,
+    hot bit,
+    stick bit,
+    status_flag bit
 );
 ```
 
@@ -203,28 +190,136 @@ CREATE TABLE user_blog_comment(
 博客评论回复表设计：user_blog_comment_reply  
 评论回复消息ID：blog_comment_reply_id  
 发表者：user_id  
-回复内容：blog_comment_reply_content  
-发表日期：blog_comment_reply_publish_time  
-回复类型：blog_comment_reply_type 0为回复评论，1为回复别人的回复。  
+回复内容：content  
+发表日期：publish_time  
+回复类型：reply_type 0为回复评论，1为回复别人的回复。  
 回复评论ID：blog_comment_id  
 博客id：blog_id  
-回复别人的回复：blog_comment_reply_reply_id回复消息ID   
-点赞量：blog_comment_reply_number_like  
-点踩量：blog_comment_reply_number_dislike  
-回复消息状态：blog_comment_reply_status 
+回复别人的回复：comment_reply_reply_id回复消息ID   
+点赞量：number_like  
+点踩量：number_dislike  
+回复消息状态：status 
 
 ```sql
 CREATE TABLE user_blog_comment_reply(
     blog_comment_reply_id int(11),
     user_id int(11),
-    blog_comment_reply_content text,
-    blog_comment_reply_publish_time datetime,
-    blog_comment_reply_type int(1),
+    content text,
+    publish_time datetime,
+    reply_type int(1),
     blog_comment_id int(11),
     blog_id int(11),
     blog_comment_reply_reply_id int(11),
-    blog_comment_reply_number_like SMALLINT,
-    blog_comment_reply_number_dislike SMALLINT,
-    blog_comment_reply_status int(1)
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    status_flag bit
+);
+```
+
+
+# 创建活动信息表
+活动信息表：user_activity_information  
+活动ID：activity_id  
+作者ID：user_id  
+发表日期：publish_time  
+更新日期：update_time  
+源地址：html_source_address  
+博客主题：topic  
+来源：source  
+标题：title  
+标题字体大小：title_font_size  
+标题字体颜色：title_font_color  
+关键字：key_word  
+活动内容：content  
+
+是否推荐：recommended  
+是否删除：deleted  
+
+被收藏量：number_collected  
+点赞数：number_like  
+点踩数：number_dislike  
+
+浏览量：number_readed  
+评论量：number_commented  
+最后评论时间：lasted_commented_time  
+状态: status_flag
+
+**复制博客信息表**
+```sql
+SHOW DATEBASES;
+USE SEUMSTC;
+SHOW TABLES;
+CREATE TABLE user_activity_information LIKE user_blog_information;
+INSERT INTO user_activity_information SELECT * FROM user_blog_information;
+
+
+```
+
+**修改字段名称**
+```sql
+ALTER TABLE user_activity_information CHANGE blog_id activity_id int(11);
+```
+
+**删除字段**
+```sql
+ALTER TABLE user_activity_information  DROP source;
+ALTER TABLE user_activity_information  DROP html_source_address;
+```
+# 创建活动评论表
+博客评论表设计：user_activity_comment  
+评论ID：activity_comment_id  
+对应博客ID：activity_id  
+发表者：user_id  
+发表日期：publish_time  
+评论内容：content  
+点赞量：number_like  
+点踩量：number_dislike  
+回复评论数：number_replyed  
+是否为热评：hot  
+是否置顶：stick  
+评论状态：status_flag -1为删除，0为待审核，1为已发布 
+```sql
+CREATE TABLE user_activity_comment(
+    activity_comment_id int(11),
+    activity_id int(11),
+    user_id int(11),
+    publish_time datetime,
+    content text,
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    number_replyed SMALLINT,
+    hot bit,
+    stick bit,
+    status_flag bit
+);
+```
+
+# 创建活动评论回复表
+博客评论回复表设计：user_activity_comment_reply  
+评论回复消息ID：activity_comment_reply_id  
+发表者：user_id  
+回复内容：content  
+发表日期：publish_time  
+回复类型：reply_type 0为回复评论，1为回复别人的回复。  
+回复评论ID：activity_comment_id  
+博客id：blog_id  
+回复别人的回复：comment_reply_reply_id回复消息ID   
+点赞量：number_like  
+点踩量：number_dislike  
+回复消息状态：status 
+
+```sql
+CREATE TABLE user_activity_comment_reply(
+    activity_comment_reply_id int(11),
+    user_id int(11),
+    content text,
+    publish_time datetime,
+    reply_type int(1),
+    activity_comment_id int(11),
+    activity_id int(11),
+    comment_reply_reply_id int(11),
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    status_flag bit
 );
 ```
