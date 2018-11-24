@@ -182,7 +182,23 @@ DESCRIBE user_blog_information;
 回复评论数：blog_comment_number_replyed  
 是否为热评：blog_comment_hot  
 是否置顶：blog_comment_stick  
-评论状态：blog_comment_status -1为删除，0为待审核，1为已发布  
+评论状态：blog_comment_status -1为删除，0为待审核，1为已发布 
+```sql
+CREATE TABLE user_blog_comment(
+    blog_comment_id int(11),
+    blog_id int(11),
+    user_id int(11),
+    blog_comment_publish_time datetime,
+    blog_comment_content text,
+    blog_comment_number_like SMALLINT,
+    blog_comment_number_dislike SMALLINT,
+    blog_comment_number_replyed SMALLINT,
+    blog_comment_hot bit,
+    blog_comment_stick bit,
+    blog_comment_status int(1)
+);
+```
+
 # 创建博客评论回复表
 博客评论回复表设计：user_blog_comment_reply  
 评论回复消息ID：blog_comment_reply_id  
@@ -192,7 +208,23 @@ DESCRIBE user_blog_information;
 回复类型：blog_comment_reply_type 0为回复评论，1为回复别人的回复。  
 回复评论ID：blog_comment_id  
 博客id：blog_id  
-回复别人的回复：blog_comment_id回复消息ID   
+回复别人的回复：blog_comment_reply_reply_id回复消息ID   
 点赞量：blog_comment_reply_number_like  
 点踩量：blog_comment_reply_number_dislike  
-回复消息状态：blog_comment_reply_status  
+回复消息状态：blog_comment_reply_status 
+
+```sql
+CREATE TABLE user_blog_comment_reply(
+    blog_comment_reply_id int(11),
+    user_id int(11),
+    blog_comment_reply_content text,
+    blog_comment_reply_publish_time datetime,
+    blog_comment_reply_type int(1),
+    blog_comment_id int(11),
+    blog_id int(11),
+    blog_comment_reply_reply_id int(11),
+    blog_comment_reply_number_like SMALLINT,
+    blog_comment_reply_number_dislike SMALLINT,
+    blog_comment_reply_status int(1)
+);
+```
