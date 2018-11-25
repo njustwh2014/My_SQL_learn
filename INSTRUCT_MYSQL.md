@@ -323,3 +323,107 @@ CREATE TABLE user_activity_comment_reply(
     status_flag bit
 );
 ```
+
+
+# 创建技术讨论信息表
+技术讨论信息表：user_technical_discussion_information  
+技术讨论ID：technical_discussion_id  
+作者ID：user_id  
+发表日期：publish_time  
+更新日期：update_time  
+源地址：html_source_address  
+博客主题：topic  
+来源：source  
+标题：title  
+标题字体大小：title_font_size  
+标题字体颜色：title_font_color  
+关键字：key_word  
+活动内容：content  
+
+是否推荐：recommended  
+是否删除：deleted  
+
+被收藏量：number_collected  
+点赞数：number_like  
+点踩数：number_dislike  
+
+浏览量：number_readed  
+评论量：number_commented  
+最后评论时间：lasted_commented_time  
+状态: status_flag
+
+**复制活动信息表**
+```sql
+SHOW DATEBASES;
+USE SEUMSTC;
+SHOW TABLES;
+CREATE TABLE user_technical_discussion_information LIKE user_activity_information;
+INSERT INTO user_technical_discussion_information SELECT * FROM user_activity_information;
+
+
+```
+
+**修改字段名称**
+```sql
+ALTER TABLE user_technical_discussion_information CHANGE activity_id technical_discussion_id int(11);
+```
+
+
+# 创建技术讨论评论表
+技术讨论评论表设计：user_technical_discussion_comment  
+评论ID：technical_discussion_comment_id  
+对应技术讨论ID：technical_discussion_id  
+发表者：user_id  
+发表日期：publish_time  
+评论内容：content  
+点赞量：number_like  
+点踩量：number_dislike  
+回复评论数：number_replyed  
+是否为热评：hot  
+是否置顶：stick  
+评论状态：status_flag -1为删除，0为待审核，1为已发布 
+```sql
+CREATE TABLE user_technical_discussion_comment(
+    technical_discussion_comment_id int(11),
+    technical_discussion_id int(11),
+    user_id int(11),
+    publish_time datetime,
+    content text,
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    number_replyed SMALLINT,
+    hot bit,
+    stick bit,
+    status_flag bit
+);
+```
+
+# 创建技术讨论评论回复表
+技术讨论评论回复表设计：user_technical_discussion_comment_reply  
+评论回复消息ID：technical_discussion_comment_reply_id  
+发表者：user_id  
+回复内容：content  
+发表日期：publish_time  
+回复类型：reply_type 0为回复评论，1为回复别人的回复。  
+回复评论ID：activity_comment_id  
+博客id：blog_id  
+回复别人的回复：comment_reply_reply_id回复消息ID   
+点赞量：number_like  
+点踩量：number_dislike  
+回复消息状态：status 
+
+```sql
+CREATE TABLE user_technical_discussion_comment_reply(
+    technical_discussion_comment_reply_id int(11),
+    user_id int(11),
+    content text,
+    publish_time datetime,
+    reply_type int(1),
+    technical_discussion_comment_id int(11),
+    technical_discussion_id int(11),
+    comment_reply_reply_id int(11),
+    number_like SMALLINT,
+    number_dislike SMALLINT,
+    status_flag bit
+);
+```
