@@ -116,6 +116,30 @@ LOCK TABLES `user_activity_information` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_blacklist`
+--
+
+DROP TABLE IF EXISTS `user_blacklist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user_blacklist` (
+  `user_id` int(11) DEFAULT NULL,
+  `user_black_id` int(11) DEFAULT NULL,
+  `black_time` datetime DEFAULT NULL,
+  `status` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_blacklist`
+--
+
+LOCK TABLES `user_blacklist` WRITE;
+/*!40000 ALTER TABLE `user_blacklist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_blacklist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_blog_comment`
 --
 
@@ -245,6 +269,30 @@ LOCK TABLES `user_collect` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_dynamic`
+--
+
+DROP TABLE IF EXISTS `user_dynamic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user_dynamic` (
+  `user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `get_time` datetime DEFAULT NULL,
+  `status_flag` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_dynamic`
+--
+
+LOCK TABLES `user_dynamic` WRITE;
+/*!40000 ALTER TABLE `user_dynamic` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_dynamic` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_information`
 --
 
@@ -260,7 +308,7 @@ CREATE TABLE `user_information` (
   `school` varchar(255) DEFAULT NULL,
   `hobby` text,
   `head_portrait` varchar(255) DEFAULT NULL,
-  `blacklist` text,
+  `blacklist_number` smallint(6) DEFAULT NULL,
   `contribution_degree` smallint(6) DEFAULT NULL,
   `number_collect` smallint(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -273,6 +321,31 @@ CREATE TABLE `user_information` (
 LOCK TABLES `user_information` WRITE;
 /*!40000 ALTER TABLE `user_information` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_information` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_private_message`
+--
+
+DROP TABLE IF EXISTS `user_private_message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user_private_message` (
+  `user_id` int(11) DEFAULT NULL,
+  `send_user_id` int(11) DEFAULT NULL,
+  `get_time` datetime DEFAULT NULL,
+  `content` text,
+  `status_flag` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_private_message`
+--
+
+LOCK TABLES `user_private_message` WRITE;
+/*!40000 ALTER TABLE `user_private_message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_private_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -404,6 +477,30 @@ INSERT INTO `user_register` VALUES (220181499,'seuwh2018@foxmail.com','123456','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_system_message`
+--
+
+DROP TABLE IF EXISTS `user_system_message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `user_system_message` (
+  `user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `get_time` datetime DEFAULT NULL,
+  `status_flag` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_system_message`
+--
+
+LOCK TABLES `user_system_message` WRITE;
+/*!40000 ALTER TABLE `user_system_message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_system_message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_technical_discussion_comment`
 --
 
@@ -512,4 +609,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-26 21:53:40
+-- Dump completed on 2018-11-27 21:50:19

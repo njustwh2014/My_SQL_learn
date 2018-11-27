@@ -50,7 +50,7 @@ LINES TERMINATED BY '\r\n';
 学校：school  
 爱好：hobby  
 头像：head_portrait 图片的相对路径  
-黑名单：blacklist  
+黑名单数：blacklist_number  
 贡献度：contribution_degree  
 收藏数：number_collect  
 
@@ -67,9 +67,73 @@ CREATE TABLE user_information(
     school varchar(255),
     hobby text,
     head_portrait varchar(255),
-    blacklist text,
+    blacklist_number SMALLINT,
     contribution_degree SMALLINT,
     number_collect SMALLINT
+);
+
+```
+
+
+# 创建用户黑名单
+用户黑名单表 user_blacklist
+用户ID user_id
+拉黑ID user_black_id
+拉黑时间 black_time
+当前状态 status
+```sql
+CREATE TABLE user_blacklist(
+    user_id int(11),
+    user_black_id int(11),
+    black_time datetime,
+    status bit
+);
+```
+# 创建用户动态表
+用户动态表  user_dynamic
+用户ID user_id
+动态内容 content
+时间 get_time
+状态 status_flag
+```sql
+CREATE TABLE user_dynamic(
+    user_id int(11),
+    content text,
+    get_time datetime,
+    status_flag bit
+);
+```
+
+# 创建用户私信表
+用户私信表 user_private_message
+用户ID user_id
+发送用户ID send_user_id
+时间 get_time
+内容 content
+状态 status_flag
+```sql
+CREATE TABLE user_private_message(
+    user_id int(11),
+    send_user_id int(11),
+    get_time datetime,
+    content text,
+    status_flag bit
+
+);
+```
+
+# 创建用户系统消息表
+用户系统消息表 user_system_message
+用户ID user_id
+消息内容content
+时间 get_time
+状态 status_flag
+```sql
+CREATE TABLE user_system_message(
+    user_id int(11),
+    content text,
+    get_time datetime,
+    status_flag bit
 );
 ```
 
