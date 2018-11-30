@@ -1,28 +1,47 @@
-# 创建用户登陆表
-用户登陆表 user_register  
-ID：user_id  
+# 创建用户信息表
+用户信息表：user_information  
+用户ID：id  
 账号：account  
 密码：user_password  
 登录状态：register_status  
 IP地址：IP_address  
 上次登录时间：last_time  
 权限：authority  
+昵称：nickname  
+账号：account  
+性别：gender  
+出生日期：birthdate  
+学校：school  
+爱好：hobby  
+头像：head_portrait_url 图片的相对路径   
+贡献度：contribution_degree    
 
 ```sql
-SHOW DATABASES;
-CREATE DATABASE SEUMSTC;
+SHOW DATEBASES;
 USE SEUMSTC;
 SHOW TABLES;
-CREATE TABLE user_register(
-    user_id int(11),
+CREATE TABLE user_information(
+    id int(11),
     account varchar(255),
     user_password varchar(255),
     register_status char(1),
+    token varchar(255),
+    salt varchar(32),
     IP_address  int UNSIGNED,
     last_time timestamp,
-    authority char(1)
+    authority bit,
+    nickname varchar(255),
+    gender bit,
+    birthdate datetime,
+    school varchar(255),
+    hobby text,
+    head_portrait_url varchar(255),
+    contribution_degree SMALLINT
 );
-DESCRIBE user_register;
+
+```
+```sql
+DESCRIBE user_register; 
 ALTER TABLE user_register MODIFY IP_address varchar(255);
 INSERT INTO user_register ( user_id,account,user_password,register_status,IP_address,last_time,authority)
                        VALUES
@@ -36,44 +55,11 @@ LINES TERMINATED BY '\r\n';
 ```
 
 
+
 **Tips:** 查看 secure-file-priv 当前的值是什么?
 ```sql
     show variables like '%secure%';
 ```
-# 创建用户信息表
-用户信息表：user_information  
-用户ID：user_id  
-昵称：nickname  
-账号：account  
-性别：gender  
-出生日期：birthdate  
-学校：school  
-爱好：hobby  
-头像：head_portrait 图片的相对路径  
-黑名单数：blacklist_number  
-贡献度：contribution_degree  
-收藏数：number_collect  
-
-```sql
-SHOW DATEBASES;
-USE SEUMSTC;
-SHOW TABLES;
-CREATE TABLE user_information(
-    user_id int(11),
-    nickname varchar(255),
-    account varchar(255),
-    gender tinyint(1),
-    birthdate datetime,
-    school varchar(255),
-    hobby text,
-    head_portrait varchar(255),
-    blacklist_number SMALLINT,
-    contribution_degree SMALLINT,
-    number_collect SMALLINT
-);
-
-```
-
 
 # 创建用户黑名单
 用户黑名单表 user_blacklist
@@ -83,7 +69,7 @@ CREATE TABLE user_information(
 当前状态 status
 ```sql
 CREATE TABLE user_blacklist(
-    user_id int(11),
+    id int(11),
     user_black_id int(11),
     black_time datetime,
     status bit
@@ -97,7 +83,7 @@ CREATE TABLE user_blacklist(
 状态 status_flag
 ```sql
 CREATE TABLE user_dynamic(
-    user_id int(11),
+    id int(11),
     content text,
     get_time datetime,
     status_flag bit
@@ -113,7 +99,7 @@ CREATE TABLE user_dynamic(
 状态 status_flag
 ```sql
 CREATE TABLE user_private_message(
-    user_id int(11),
+    id int(11),
     send_user_id int(11),
     get_time datetime,
     content text,
@@ -130,7 +116,7 @@ CREATE TABLE user_private_message(
 状态 status_flag
 ```sql
 CREATE TABLE user_system_message(
-    user_id int(11),
+    id int(11),
     content text,
     get_time datetime,
     status_flag bit
@@ -151,7 +137,7 @@ SHOW DATEBASES;
 USE SEUMSTC;
 SHOW TABLES;
 CREATE TABLE user_collect(
-    user_id int(11),
+    id int(11),
     collect_type  int(1),
     blog_id int(11),
     activity_id int(11),
@@ -194,7 +180,7 @@ USE SEUMSTC;
 SHOW TABLES;
 CREATE TABLE user_blog_information(
     blog_id int(11),
-    user_id int(11),   
+    id int(11),   
     publish_time datetime,
     update_time datetime,
     html_source_address TEXT,
